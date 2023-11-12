@@ -44,7 +44,7 @@ public class Crawler {
                 return doc;
             }
         } catch (IOException e) {
-            Logger.getGlobal().log(Level.WARNING, "Something bad happened!");
+            Logger.getGlobal().log(Level.WARNING, "Something bad has happened!");
         }
 
         return null;
