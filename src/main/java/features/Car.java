@@ -11,6 +11,8 @@ public class Car {
         this.mileage = mileage;
     }
 
+    public String getName() { return name; }
+
     public double getPrice() {
         return price;
     }

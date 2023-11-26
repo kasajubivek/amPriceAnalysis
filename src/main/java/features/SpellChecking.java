@@ -28,7 +28,7 @@ public class SpellChecking {
             Scanner scanner = new Scanner(System.in);
 
             while (true) {
-                System.out.println("Please enter your favourite car brand\nIf you want to exit the program then type 'quit' ");
+                System.out.println("Please enter your favourite car brand\nIf you want to exit the program then type 'quit': ");
 
                 _usr_inp_ = scanner.nextLine();
 
@@ -74,9 +74,8 @@ public class SpellChecking {
 
     public static boolean editDistanceSimilarity(String _word_one_, String _word_two_){
 
-
-        char[] _word_one_arr_ = _word_one_.toCharArray();
-        char[] _word_two_arr_ = _word_two_.toCharArray();
+        char[] _word_one_arr_ = _word_one_.toLowerCase().toCharArray();
+        char[] _word_two_arr_ = _word_two_.toLowerCase().toCharArray();
 
 
         int[][] _matrix_ = new int[_word_two_.length()+1][_word_one_.length()+1];
@@ -111,7 +110,7 @@ public class SpellChecking {
         if(_matrix_[_matrix_.length - 1][_matrix_[0].length - 1] == 0){
             System.out.println("The spelling of the word "+_word_one_+" is correct\n");
             return true;
-        }else if(_matrix_[_matrix_.length - 1][_matrix_[0].length - 1] <= 2 && _word_one_.charAt(0) == _word_two_.charAt(0)){
+        }else if(_matrix_[_matrix_.length - 1][_matrix_[0].length - 1] <= 2 && _word_one_.toLowerCase().charAt(0) == _word_two_.toLowerCase().charAt(0)){
             _similar_words_.add(_word_two_);
         }
 
