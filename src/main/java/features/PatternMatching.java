@@ -12,7 +12,7 @@ import org.w3c.dom.NodeList;
 public class PatternMatching {
     public static void main(String[] args) {
         // Directory containing files
-        String pathOfDirectory = "path/to/your/xml/files";
+        String pathOfDirectory = "src/main/resources";
 
         // Define regex patterns for phone numbers and email addresses
         String regexForPhone = "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b";
