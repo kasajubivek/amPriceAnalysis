@@ -365,7 +365,7 @@ public class MainClass {
                 case 6:{
 
                     // Create a HashMap to store words and their frequencies
-                    Map<String, Integer> wordFrequency = new HashMap<>();
+                    Map<String, Integer> wordFreq = new HashMap<>();
 
                     // Create a Scanner to read input
                     Scanner scanner = new Scanner(System.in);
@@ -373,25 +373,25 @@ public class MainClass {
                     // Loop to continuously receive input
                     while (true) {
                         System.out.print("Enter a word (type 'exit' to stop): ");
-                        String word = scanner.next();
+                        String findWord = scanner.next();
 
                         // Check if the user wants to exit
-                        if (word.equalsIgnoreCase("exit")) {
+                        if (findWord.equalsIgnoreCase("exit")) {
                             break;
                         }
 
                         // Update the word frequency
-                        int currentFrequency = wordFrequency.getOrDefault(word, 0);
-                        wordFrequency.put(word, currentFrequency + 1);
+                        int currentFreq = wordFreq.getOrDefault(findWord, 0);
+                        wordFreq.put(word, currentFrequency + 1);
 
                         // Display the current word frequency
-                        System.out.println("Word: " + word + ", Frequency: " + wordFrequency.get(word));
+                        System.out.println("Word: " + findWord + ", Frequency: " + wordFreq.get(findWord));
                     }
 
                     // Display the final word frequencies
-                    System.out.println("Word Frequencies:");
-                    for (Map.Entry<String, Integer> entry : wordFrequency.entrySet()) {
-                        System.out.println(entry.getKey() + ": " + entry.getValue() + " times");
+                    System.out.println("The searched word and its Frequency:");
+                    for (Map.Entry<String, Integer> occur : wordFreq.entrySet()) {
+                        System.out.println(entry.getKey() + ": " + occur.getValue() + " times");
                     }
 
                     break;
