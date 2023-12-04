@@ -391,7 +391,7 @@ public class MainClass {
                     // Display the final word frequencies
                     System.out.println("The searched word and its Frequency:");
                     for (Map.Entry<String, Integer> occur : wordFreq.entrySet()) {
-                        System.out.println(entry.getKey() + ": " + occur.getValue() + " times");
+                        System.out.println(occur.getKey() + ": " + occur.getValue() + " times");
                     }
 
                     break;
