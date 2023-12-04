@@ -11,10 +11,6 @@ import java.util.regex.Pattern;
 public class InvertedIndexing {
     public Map<String, Map<String, Integer>> _hm_ = new HashMap<>();;
 
-//    public InvertedIndexing() {
-//        this._hm_ = new HashMap<>();
-//    }
-
 
     public void crawlAndIndex(List<String> _urls_) {
         for (String _url_ : _urls_) {
