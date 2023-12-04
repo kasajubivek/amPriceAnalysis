@@ -24,7 +24,7 @@ public class PatternMatching {
 
         // Process each file in the directory
         File directory = new File(pathToDir);
-        File[] files = directory.listFiles();
+        File[] files = pathToDir.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
