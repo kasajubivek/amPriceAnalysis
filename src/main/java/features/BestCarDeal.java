@@ -146,6 +146,7 @@ public class BestCarDeal {
 
 
     public static List readCarsFromCSV(String filePath) {
+        int _num__of_iterations_ = 10;
         double price = 0, fuelConsumption = 0;
         String name = "", priceString, mileage = "", fuelConsumptionString;
         List<Car> cars = new ArrayList<>();
@@ -158,7 +159,7 @@ public class BestCarDeal {
             List<String[]> records = csvReader.readAll();
 
             // Assuming the CSV structure is: Name, Price, Mileage
-            for (int i = 1; i <= 10 && i < records.size(); i++) {
+            for (int i = 1; i <= _num__of_iterations_ && i < records.size(); i++) {
                 String[] record = records.get(i);
 
                 if(record[0] != null && !record[0].contains("No Information Found")){
@@ -191,6 +192,9 @@ public class BestCarDeal {
                     if(matcher_2.find()){
                         fuelConsumption = Math.max(Double.parseDouble(matcher_2.group(1)), Double.parseDouble(matcher_2.group(2)));
                     }
+                }else{
+                    _num__of_iterations_++;
+                    continue;
                 }
 
 
@@ -212,12 +216,6 @@ public class BestCarDeal {
         }
 
         return cars;
-    }
-
-    public static void printCars(List<Car> cars) {
-        for (Car car : cars) {
-            System.out.println(car);
-        }
     }
 }
 

@@ -14,7 +14,6 @@ public class SpellChecking {
 
     public static void main(String[] args) {
 
-        int count = 0;
         String _usr_inp_ = "";
 
         try{

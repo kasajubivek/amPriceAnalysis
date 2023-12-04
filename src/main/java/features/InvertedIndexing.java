@@ -68,6 +68,7 @@ public class InvertedIndexing {
             String _ui_term_ = _uinput_terms_[i];
             if (_hm_.containsKey(_ui_term_)) {
                 Map<String, Integer> _next_term_urls_ = _hm_.get(_ui_term_);
+
                 for (Map.Entry<String, Integer> entry : first ? first_entry.entrySet(): updated_map.entrySet()) {
                     String url = entry.getKey();
                     int existing_frequency = entry.getValue();
