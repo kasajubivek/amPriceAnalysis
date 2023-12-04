@@ -1,0 +1,177 @@
+Acura
+Alfa Romeo
+Alpine
+Aston Martin
+Audi
+Bentley
+BMW
+Borgward
+Buick
+Cadillac
+Chery
+Chevrolet
+Chrysler
+Citroën
+Cupra
+Dacia
+Dodge
+DS Automobiles
+Ferrari
+Fiat
+Ford
+Genesis
+Great Wall
+Honda
+Hyundai
+Infiniti
+Isuzu
+Jaguar
+Jeep
+Kia
+Koenigsegg
+Lamborghini
+Lancia
+Land Rover
+Lexus
+Lincoln
+Lotus
+Lynk & Co
+Maserati
+Mazda
+McLaren
+Mercedes
+Mini
+Mitsubishi
+Morgan
+NIO
+Nissan
+Opel
+Pagani
+Peugeot
+Porsche
+Ram
+Renault
+Rimac
+Roewe
+Saab
+SEAT
+Škoda
+Smart
+SsangYong
+Subaru
+Tata Motors
+Tesla
+Toyota
+Vauxhall
+Volkswagen
+Volvo
+Abarth
+AC Cars
+Alpina
+Arrinera
+Artega
+Ascari
+Aston Martin Lagonda
+ATS
+Aurus
+BAC
+Baojun
+BMW Alpina
+Brabham
+Bugatti
+BYD
+Canoo
+Caterham
+Changan
+Changhe
+Czinger
+DAF
+Daihatsu
+Datsun
+De Tomaso
+Devon
+DFSK
+Drako
+Eagle
+Exeed
+FAW
+Fisker
+Force Motors
+GAC
+Gaz
+Geely
+Ginetta
+GMC
+Gordon Murray
+Guangzhou Auto
+GTA
+Haval
+Hennessey
+Hongqi
+Huasong
+Hummer
+Hyundai N
+JAC Motors
+Jaguar Land Rover
+Kandi
+KARMA
+KTM
+Lada
+Landwind
+LDV
+LIFAN
+Ligier
+Lordstown
+Lucid Motors
+Luxgen
+Mahindra
+Mansory
+Maruti Suzuki
+Mazzanti
+Mclaren
+Mercury
+Mil Spec
+Mosler
+NanoFlowcell
+Naran Automotive
+Neta
+Nobe
+Nuro
+Ora
+Perodua
+Pininfarina
+Polestar
+Qiantu
+Qoros
+Quantum
+Qvale
+Radical
+Ravon
+Rezvani
+Rivian
+Rolls Royce
+Ruf
+SAIC
+Saleen
+Sbarro
+Scion
+Seres
+SF Motors
+Sin Cars
+Stellantis
+Stratos
+Subaru Tecnica International
+Suzuki
+Tazzari
+Tramontana
+Trident
+Vanda Electrics
+Vencer
+VinFast
+VUHL
+Wiesmann
+WM Motors
+Xpeng
+Youxia
+Zenvo
+ZOTYE
