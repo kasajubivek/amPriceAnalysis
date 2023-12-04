@@ -23,7 +23,7 @@ public class PatternMatching {
         Pattern patternOfEmail = Pattern.compile(regexForEmail);
 
         // Process each file in the directory
-        File directory = new File(directoryPath);
+        File directory = new File(pathOfDirectory);
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
@@ -56,7 +56,7 @@ public class PatternMatching {
             NodeList childNodes = node.getChildNodes();
             for (int i = 0; i < childNodes.getLength(); i++) {
                 Node childNode = childNodes.item(i);
-                traverseXML(childNode, phonePattern, emailPattern);
+                traverseDoc(childNode, patternOfPhone, patternOfEmail);
             }
         } else if (node.getNodeType() == Node.TEXT_NODE) {
             String allText = node.getTextContent();
@@ -65,7 +65,7 @@ public class PatternMatching {
                 System.out.println("Phone number found: " + matchForPhone.group());
             }
 
-            Matcher matchForEmail = patternOfEmail.matcher(textContent);
+            Matcher matchForEmail = patternOfEmail.matcher(allText);
             while (matchForEmail.find()) {
                 System.out.println("Email address found: " + matchForEmail.group());
             }
