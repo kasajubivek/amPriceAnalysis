@@ -23,8 +23,8 @@ public class PatternMatching {
         Pattern patternOfPrice = Pattern.compile(regexForPrice);
 
         // Process each file in the directory
-        File directory = new File(pathToDir);
-        File[] files = pathToDir.listFiles();
+        File dir = new File(pathToDir);
+        File[] files = dir.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
