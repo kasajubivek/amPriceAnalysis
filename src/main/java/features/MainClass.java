@@ -413,8 +413,8 @@ public class MainClass {
                     Pattern patternOfPrice = Pattern.compile(regexOfPrice);
 
                     // Process each file in the directory
-        File directory = new File(pathOfDir);
-        File[] files = pathOfDir.listFiles();
+        File dir = new File(pathOfDir);
+        File[] files = dir.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
