@@ -29,26 +29,28 @@ public class WebCrawler {
     private static final List<String[]> carDataRows = new ArrayList<>();
     private static final WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-    public static void websitesToCrawl(){
-        try{
-            Scanner userInput = new Scanner(System.in);
+    public static void websitesToCrawl() throws InterruptedException {
+        Scanner userInput = new Scanner(System.in);
 
+        while (true) {
             System.out.println("Do you want to crawl any specific website?");
             System.out.println("1. Yes");
             System.out.println("2. No");
             System.out.print("Enter your choice: ");
 
             int userChoice = userInput.nextInt();
-            userInput.nextLine();
+            userInput.nextLine();  // Consume the newline character left by nextInt()
 
             switch (userChoice) {
                 case 1:
                     System.out.println("Enter the website URL:");
-                    userInput.nextLine();
+                    System.out.println("The correct format for website is: https://www.abc.xyz");
                     String websiteUrl = userInput.nextLine();
 
                     if (ValidateUserInput.isValidWebsite(websiteUrl)) {
                         crawlWebsite(websiteUrl);
+                        userInput.close();
+                        return;  // Exit the method if valid input is provided
                     } else {
                         System.out.println("Invalid website URL. Please enter a valid URL.");
                     }
@@ -56,25 +58,23 @@ public class WebCrawler {
 
                 case 2:
                     System.out.println("Please Enter Your Postal Code!");
-                    System.out.println("Accepted format is :A1B 2C3");
+                    System.out.println("Accepted format is: A1B 2C3");
                     System.out.print("Enter your postal code: ");
                     String postalCodeChoice = userInput.nextLine();
-                    if(ValidateUserInput.isValidPostalCode(postalCodeChoice)){
+
+                    if (ValidateUserInput.isValidPostalCode(postalCodeChoice)) {
                         crawlDefaultWebsite(postalCodeChoice);
-                    } else{
+                        userInput.close();
+                        return;  // Exit the method if valid input is provided
+                    } else {
                         System.out.println("Invalid Postal Code! Please try again.");
-                        break;
                     }
+                    break;
 
                 default:
                     System.out.println("Invalid choice. Please choose 1 or 2.");
             }
-            userInput.close();
-        }catch (InterruptedException e){
-            System.out.println(e);
-            e.printStackTrace();
         }
-
     }
 
     private static void crawlWebsite(String websiteUrl) throws InterruptedException {
