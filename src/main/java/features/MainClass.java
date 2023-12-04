@@ -405,10 +405,12 @@ public class MainClass {
                     // Define regex patterns for phone numbers and email addresses
                     String regexOfPhone = "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b";
                     String regexOfEmail = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
+                    String regexOfPrice = "\\b\\$\\d+\\b";
 
                     // Creating Pattern objects
                     Pattern patternOfPhone = Pattern.compile(regexOfPhone);
                     Pattern patternOfEmail = Pattern.compile(regexOfEmail);
+                    Pattern patternOfPrice = Pattern.compile(regexOfPrice);
 
                     // Process each file in the directory
                     File dir = new File(pathOfDir);
@@ -417,7 +419,7 @@ public class MainClass {
                         for (File file : files) {
                             if (file.isFile() && file.getName().endsWith(".csv")) {
                                 System.out.println("Searching in file: " + file.getName());
-                                PatternMatching.searchInFile(file, patternOfPhone, patternOfEmail);
+                                PatternMatching.searchInFile(file, patternOfPhone, patternOfEmail,patternOfPrice);
                             }
                         }
                     } else {
