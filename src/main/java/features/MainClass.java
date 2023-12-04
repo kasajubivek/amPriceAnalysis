@@ -419,7 +419,7 @@ public class MainClass {
             for (File file : files) {
                 if (file.isFile()) {
                     System.out.println("Searching in file: " + file.getName());
-                    PatternMatching.searchInFile(file, phonePattern, emailPattern, pricepattern);
+                    PatternMatching.searchInFile(file, patternOfPhone, patternOfEmail, patternOfPrice);
                 }
             }
         } else {
