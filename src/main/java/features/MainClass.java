@@ -368,12 +368,12 @@ public class MainClass {
                     Map<String, Integer> wordFreq = new HashMap<>();
 
                     // Create a Scanner to read input
-                    Scanner scanner = new Scanner(System.in);
+                    Scanner scan = new Scanner(System.in);
 
                     // Loop to continuously receive input
                     while (true) {
                         System.out.print("Enter a word (type 'exit' to stop): ");
-                        String findWord = scanner.next();
+                        String findWord = scan.next();
 
                         // Check if the user wants to exit
                         if (findWord.equalsIgnoreCase("exit")) {
@@ -382,7 +382,7 @@ public class MainClass {
 
                         // Update the word frequency
                         int currentFreq = wordFreq.getOrDefault(findWord, 0);
-                        wordFreq.put(word, currentFrequency + 1);
+                        wordFreq.put(findWord, currentFreq + 1);
 
                         // Display the current word frequency
                         System.out.println("Word: " + findWord + ", Frequency: " + wordFreq.get(findWord));
@@ -403,21 +403,21 @@ public class MainClass {
                     String directoryPath = "path/to/your/xml/files";
 
                     // Define regex patterns for phone numbers and email addresses
-                    String phoneRegex = "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b";
-                    String emailRegex = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
+                    String regexOfPhone = "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b";
+                    String regexOfEmail = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
 
-                    // Create Pattern objects
-                    Pattern phonePattern = Pattern.compile(phoneRegex);
-                    Pattern emailPattern = Pattern.compile(emailRegex);
+                    // Creating Pattern objects
+                    Pattern patternOfPhone = Pattern.compile(regexOfPhone);
+                    Pattern patternOfEmail = Pattern.compile(regexOfEmail);
 
-                    // Process each XML file in the directory
-                    File directory = new File(directoryPath);
-                    File[] files = directory.listFiles();
+                    // Process each file in the directory
+                    File dir = new File(directoryPath);
+                    File[] files = dir.listFiles();
                     if (files != null) {
                         for (File file : files) {
                             if (file.isFile() && file.getName().endsWith(".csv")) {
                                 System.out.println("Searching in file: " + file.getName());
-                                PatternMatching.searchInXMLFile(file, phonePattern, emailPattern);
+                                PatternMatching.searchInFile(file, patternOfPhone, patternOfEmail);
                             }
                         }
                     } else {
