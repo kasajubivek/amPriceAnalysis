@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class SearchFrequency {
     public static void main(String[] args) {
         // Create a HashMap to store words and their frequencies
-        Map<String, Integer> wordFrequency = new HashMap<>();
+        Map<String, Integer> wordFreq = new HashMap<>();
 
         // Create a Scanner to read input
         Scanner scanner = new Scanner(System.in);
@@ -23,17 +23,17 @@ public class SearchFrequency {
                 break;
             }
 
-            // Update the word frequency
-            int currentFrequency = wordFrequency.getOrDefault(word, 0);
-            wordFrequency.put(word, currentFrequency + 1);
+            // Update the frequency of the word
+            int currentFreq = wordFreq.getOrDefault(word, 0);
+            wordFreq.put(word, currentFreq + 1);
 
             // Display the current word frequency
-            System.out.println("Word: " + word + ", Frequency: " + wordFrequency.get(word));
+            System.out.println("Word: " + word + ", Frequency: " + wordFreq.get(word));
         }
 
         // Display the final word frequencies
-        System.out.println("Word Frequencies:");
-        for (Map.Entry<String, Integer> entry : wordFrequency.entrySet()) {
+        System.out.println("The Frequencies:");
+        for (Map.Entry<String, Integer> entry : wordFreq.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue() + " times");
         }
 
