@@ -9,11 +9,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InvertedIndexing {
-    private Map<String, Map<String, Integer>> _hm_;
+    public Map<String, Map<String, Integer>> _hm_ = new HashMap<>();;
 
-    public InvertedIndexing() {
-        this._hm_ = new HashMap<>();
-    }
+//    public InvertedIndexing() {
+//        this._hm_ = new HashMap<>();
+//    }
 
 
     public void crawlAndIndex(List<String> _urls_) {
@@ -30,7 +30,8 @@ public class InvertedIndexing {
 
 
     public void addDocument(String _url_, String content) {
-        content = content.replaceAll("['\".,]", "");
+        //removes unwanted characters
+        content = content.replaceAll("[\\'\".,$£€\\[\\](){},:;\\-_]", "");
         String[] _terms_ = content.toLowerCase().split("\\s+");
 
         for (String _term_ : _terms_) {
@@ -108,16 +109,14 @@ public class InvertedIndexing {
 
 
     public static void main(String[] args) {
+        String _user_input_;
         InvertedIndexing obj = new InvertedIndexing();
 
         List<String> urls = new ArrayList<>();
-        urls.addAll(Arrays.asList("https://www.goauto.ca/",
-                "https://en.wikipedia.org/wiki/Premier_League",
-                "https://www.premierleague.com/tables",
-                "https://en.wikipedia.org/wiki/Chelsea",
+        urls.addAll(Arrays.asList("https://www.goauto.ca/vehicles",
                 "https://www.cargurus.ca/",
-                "https://www.football.london/chelsea-fc/news/chelsea-relegation-man-city-points-28141827",
-                "https://www.express.co.uk/sport/football/1836898/Chelsea-Man-City-Everton-Premier-League-news-FFP"));
+                "https://www.driveaxis.ca/vehicle-listing"
+              ));
 
 
 
@@ -127,14 +126,9 @@ public class InvertedIndexing {
 
         System.out.println("\nDo you want to add more URLs? (Y/N)");
 
-        String userInput = scanner.nextLine().toLowerCase();
+        _user_input_ = scanner.nextLine().toLowerCase();
 
-        while (!userInput.equals("yes") && !userInput.equals("y") && !userInput.equals("no") && !userInput.equals("n")){
-            System.out.println("Please tell us if you want to add more URLs or not");
-            userInput = scanner.nextLine().toLowerCase();
-        }
-
-        if (userInput.equals("yes") || userInput.equals("y")) {
+        if (_user_input_.equalsIgnoreCase("yes") || _user_input_.equalsIgnoreCase("y")) {
 
             System.out.print("Enter the URL\n");
             System.out.println("Type 'done' after you finish!");
@@ -162,17 +156,16 @@ public class InvertedIndexing {
 
         while (true) {
 
-            System.out.println("\nEnter something to search\nIf you want to exit the program then type '_quit': ");
+            System.out.println("\nEnter something to search\nIf you want to exit the search then type '_quit': ");
 
-            String _user_input_ = scanner.nextLine();
+            _user_input_ = scanner.nextLine();
 
             if (_user_input_.equalsIgnoreCase("_quit")) {
-                System.out.println("See you!");
+                System.out.println("Sure!\n");
                 break;
             }
 
 
-//            scanner.close();
 
             Map<String, Integer> searchResult = obj.search(_user_input_);
 
@@ -199,7 +192,26 @@ public class InvertedIndexing {
 
         }
 
+        System.out.println("Do you want to view the entire Inverted Index Map? (Y/N)");
 
+        _user_input_ = scanner.nextLine();
+
+        if(_user_input_.equalsIgnoreCase("yes") || _user_input_.equalsIgnoreCase("y")){
+            for(Map.Entry<String, Map<String, Integer>> entry: obj._hm_.entrySet()){
+                System.out.println("Word: "+entry.getKey());
+                for(Map.Entry<String, Integer> innerEntry: entry.getValue().entrySet()){
+                    System.out.println("URL: "+innerEntry.getKey()+" Frequency: "+innerEntry.getValue());
+                }
+                System.out.println("");
+            }
+
+            System.out.println("See you!");
+
+        }else{
+            System.out.println("See you!");
+        }
+
+        scanner.close();
 
     }
 
@@ -215,7 +227,7 @@ public class InvertedIndexing {
 
 
 
-    private static void mergeSort(List<Map.Entry<String, Integer>> searchResultList, int low, int high) {
+    public static void mergeSort(List<Map.Entry<String, Integer>> searchResultList, int low, int high) {
         if (low < high) {
             int mid = (low + high) / 2;
 
@@ -226,7 +238,7 @@ public class InvertedIndexing {
         }
     }
 
-    private static void merge(List<Map.Entry<String, Integer>> searchResultList, int low, int mid, int high) {
+    public static void merge(List<Map.Entry<String, Integer>> searchResultList, int low, int mid, int high) {
 
         int _i_ = low;
         int _j_ = mid + 1;

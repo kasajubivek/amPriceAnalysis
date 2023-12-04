@@ -37,10 +37,8 @@ public class BestCarDeal {
         mergeSort(cars, 0, cars.length - 1, "fuelConsumption");
         mergeSort(cars, 0, cars.length - 1, "price");
 
-//        System.out.println("Cars sorted by fuelConsumption and then by price:\n");
 
         for (Car car : cars) {
-//            System.out.println(car);
 
             if ("0".equals(car.getMileage())) {
                 newCars.add(car);
@@ -87,15 +85,10 @@ public class BestCarDeal {
             System.out.println(car);
         }
 
-//        System.out.println("\nBest deals for cars according to the price range and mileage:\n");
-//        for (Car car : bestDeals) {
-//            System.out.println(car);
-//        }
-
     }
 
 
-    private static void mergeSort(Car[] _cars_arr_, int low, int high, String compareBy) {
+    public static void mergeSort(Car[] _cars_arr_, int low, int high, String compareBy) {
         if (low < high) {
             int mid = (low + high) / 2;
 
@@ -106,7 +99,7 @@ public class BestCarDeal {
         }
     }
 
-    private static void merge(Car[] _cars_arr_, int low, int mid, int high, String compareBy) {
+    public static void merge(Car[] _cars_arr_, int low, int mid, int high, String compareBy) {
 
         int _i_ = low;
         int _j_ = mid + 1;
@@ -152,7 +145,7 @@ public class BestCarDeal {
     }
 
 
-    private static List readCarsFromCSV(String filePath) {
+    public static List readCarsFromCSV(String filePath) {
         double price = 0, fuelConsumption = 0;
         String name = "", priceString, mileage = "", fuelConsumptionString;
         List<Car> cars = new ArrayList<>();
@@ -221,7 +214,7 @@ public class BestCarDeal {
         return cars;
     }
 
-    private static void printCars(List<Car> cars) {
+    public static void printCars(List<Car> cars) {
         for (Car car : cars) {
             System.out.println(car);
         }
