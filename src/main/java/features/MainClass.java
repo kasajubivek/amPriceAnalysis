@@ -399,8 +399,8 @@ public class MainClass {
                 }
 
                 case 7: {
-                    // Directory containing your XML files
-                    String directoryPath = "path/to/your/xml/files";
+                    // Directory containing files
+                    String pathOfDir = "src/main/resources";
 
                     // Define regex patterns for phone numbers and email addresses
                     String regexOfPhone = "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b";
@@ -411,7 +411,7 @@ public class MainClass {
                     Pattern patternOfEmail = Pattern.compile(regexOfEmail);
 
                     // Process each file in the directory
-                    File dir = new File(directoryPath);
+                    File dir = new File(pathOfDir);
                     File[] files = dir.listFiles();
                     if (files != null) {
                         for (File file : files) {
