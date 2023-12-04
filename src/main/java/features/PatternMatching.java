@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class PatternMatching {
     public static void main(String[] args) {
         // Directory containing files
-        String pathToDir = "C:\\Users\\nikit\\OneDrive\\Desktop\\ACC Final project\\src";
+        String pathToDir = "src/main/resources";
 
         // Define regex patterns for phone numbers, emails and prices
         String regexOfrPhone = "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b";
