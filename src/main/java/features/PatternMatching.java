@@ -11,25 +11,25 @@ import org.w3c.dom.NodeList;
 
 public class PatternMatching {
     public static void main(String[] args) {
-        // Directory containing your XML files
-        String directoryPath = "path/to/your/xml/files";
+        // Directory containing files
+        String pathOfDirectory = "path/to/your/xml/files";
 
         // Define regex patterns for phone numbers and email addresses
-        String phoneRegex = "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b";
-        String emailRegex = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
+        String regexForPhone = "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b";
+        String regexForEmail = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
 
-        // Create Pattern objects
-        Pattern phonePattern = Pattern.compile(phoneRegex);
-        Pattern emailPattern = Pattern.compile(emailRegex);
+        // Creating Pattern objects
+        Pattern patternOfPhone = Pattern.compile(regexForPhone);
+        Pattern patternOfEmail = Pattern.compile(regexForEmail);
 
-        // Process each XML file in the directory
+        // Process each file in the directory
         File directory = new File(directoryPath);
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isFile() && file.getName().endsWith(".csv")) {
                     System.out.println("Searching in file: " + file.getName());
-                    searchInXMLFile(file, phonePattern, emailPattern);
+                    searchInFile(file, patternOfPhone, patternOfEmail);
                 }
             }
         } else {
@@ -37,21 +37,21 @@ public class PatternMatching {
         }
     }
 
-    public static void searchInXMLFile(File file, Pattern phonePattern, Pattern emailPattern) {
+    public static void searchInFile(File file, Pattern patternOfPhone, Pattern patternOfEmail) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(file);
 
-            // Traverse the XML document
-            traverseXML(document, phonePattern, emailPattern);
+            // Traverse the document
+            traverseDoc(document, patternOfPhone, patternOfEmail);
         } catch (Exception e) {
             System.err.println("Error parsing the XML file: " + file.getName());
             e.printStackTrace();
         }
     }
 
-    public static void traverseXML(Node node, Pattern phonePattern, Pattern emailPattern) {
+    public static void traverseDoc(Node node, Pattern patternOfPhone, Pattern patternOfEmail) {
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             NodeList childNodes = node.getChildNodes();
             for (int i = 0; i < childNodes.getLength(); i++) {
@@ -59,15 +59,15 @@ public class PatternMatching {
                 traverseXML(childNode, phonePattern, emailPattern);
             }
         } else if (node.getNodeType() == Node.TEXT_NODE) {
-            String textContent = node.getTextContent();
-            Matcher phoneMatcher = phonePattern.matcher(textContent);
-            while (phoneMatcher.find()) {
-                System.out.println("Phone number found: " + phoneMatcher.group());
+            String allText = node.getTextContent();
+            Matcher matchForPhone = patternOfPhone.matcher(allText);
+            while (matchForPhone.find()) {
+                System.out.println("Phone number found: " + matchForPhone.group());
             }
 
-            Matcher emailMatcher = emailPattern.matcher(textContent);
-            while (emailMatcher.find()) {
-                System.out.println("Email address found: " + emailMatcher.group());
+            Matcher matchForEmail = patternOfEmail.matcher(textContent);
+            while (matchForEmail.find()) {
+                System.out.println("Email address found: " + matchForEmail.group());
             }
         }
     }
