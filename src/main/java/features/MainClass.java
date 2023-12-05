@@ -324,34 +324,33 @@ public class MainClass {
 
                         case 6:{
 
-                            // Create a HashMap to store words and their frequencies
-                            Map<String, Integer> wordFreq = new HashMap<>();
+                            // Creating a HashMap to store input words and their frequencies
+        Map<String, Integer> wordFreq = new HashMap<>();
 
-                            // Create a Scanner to read input
-                            Scanner scan = new Scanner(System.in);
+        // A Scanner is created to take input of the users
+        Scanner inputData = new Scanner(System.in);
 
-                            // Loop to continuously receive input
-                            while (true) {
-                                System.out.print("Enter a word (type 'exit' to stop): ");
-                                String findWord = scan.next();
+        // A loop is created to take input till the user stops
+        while (true) {
+            System.out.print("Input a word you want to search (to stop, type 'exit'): ");
+            String typedWord = inputData.next();
 
-                                // Check if the user wants to exit
-                                if (findWord.equalsIgnoreCase("exit")) {
-                                    break;
-                                }
+            // This is to check if the user wants to exit
+            if (typedWord.equalsIgnoreCase("exit")) {
+                break;
+            }
 
-                                // Update the word frequency
-                                int currentFreq = wordFreq.getOrDefault(findWord, 0);
-                                wordFreq.put(findWord, currentFreq + 1);
+            // the frequency is updated each time an input is taken
+            int currentFreq = wordFreq.getOrDefault(typedWord, 0);
+            wordFreq.put(typedWord, currentFreq + 1);
 
-                                // Display the current word frequency
-                                System.out.println("Word: " + findWord + ", Frequency: " + wordFreq.get(findWord));
-                            }
+            
+        }
 
-                            // Display the final word frequencies
-                            System.out.println("The searched word and its Frequency:");
-                            for (Map.Entry<String, Integer> occur : wordFreq.entrySet()) {
-                                System.out.println(occur.getKey() + ": " + occur.getValue() + " times");
+        // The words and its frequency is displayed
+        System.out.println("The Words and their Frequencies:");
+        for (Map.Entry<String, Integer> enteredWord : wordFreq.entrySet()) {
+            System.out.println(enteredWord.getKey() + ": " + enteredWord.getValue() + " time(s)");
                             }
 
                             break;
@@ -359,32 +358,30 @@ public class MainClass {
                         }
 
                         case 7: {
-                            // Directory containing files
-                            String pathOfDir = "src/main/resources";
+                                   // Showing path of directory
+        String pathToDir = "C:\\Users\\nikit\\OneDrive\\Desktop\\Advanced Computing Concepts\\Documents\\GitHub\\acc_project\\src\\main\\resources";
+        // Define regex patterns for phone numbers and prices
+        String regexOfrPhone = "\\b[0-9]{3}[-.]?[0-9]{3}[-.]?[0-9]{4}\\b";
+      
+        String regexForPrice = "\\$\\d+,\\d+";
 
-                            // Define regex patterns for phone numbers and email addresses
-                            String regexOfPhone = "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b";
-                            String regexOfEmail = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b";
-                            String regexOfPrice = "\\$\\d+,\\d+";
+        // Creating objects for Pattern
+        Pattern patternOfPhone = Pattern.compile(regexOfrPhone);
+        Pattern patternOfPrice = Pattern.compile(regexForPrice);
 
-                            // Creating Pattern objects
-                            Pattern patternOfPhone = Pattern.compile(regexOfPhone);
-                            Pattern patternOfEmail = Pattern.compile(regexOfEmail);
-                            Pattern patternOfPrice = Pattern.compile(regexOfPrice);
-
-                            // Process each file in the directory
-                            File dir = new File(pathOfDir);
-                            File[] files = dir.listFiles();
-                            if (files != null) {
-                                for (File file : files) {
-                                    if (file.isFile()) {
-                                        System.out.println("Searching in file: " + file.getName());
-                                        PatternMatching.searchInFile(file, patternOfPhone, patternOfEmail, patternOfPrice);
-                                    }
-                                }
-                            } else {
-                                System.out.println("Invalid directory path.");
-                            }
+        // Processing all the files present in the  directory
+        File dir = new File(pathToDir);
+        File[] filesFound = dir.listFiles();
+        if (filesFound != null) {
+            for (File filesHere : filesFound) {
+                if (filesHere.isFile()) {
+                    System.out.println("Reading in file: " + filesHere.getName());
+                    PatternMatching.searchFile(filesHere, patternOfPhone, patternOfPrice);
+                }
+            }
+        } else {
+            System.out.println("Invalid directory path. Check or try a different path");
+        }
                         }
                         default:
                             System.out.println("Invalid Input!");
