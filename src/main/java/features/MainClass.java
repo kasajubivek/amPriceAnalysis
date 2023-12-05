@@ -379,7 +379,7 @@ public class MainClass {
                                 for (File file : files) {
                                     if (file.isFile()) {
                                         System.out.println("Searching in file: " + file.getName());
-                                        PatternMatching.searchInFile(file, patternOfPhone, patternOfEmail, patternOfPrice);
+                                        PatternMatching.searchFile(filesHere, patternOfPhone, patternOfPrice);
                                     }
                                 }
                             } else {
