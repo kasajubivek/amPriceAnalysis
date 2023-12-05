@@ -220,33 +220,39 @@ public class BestCarDeal {
 }
 
 class Car {
-    private String name;
-    private double price;
-    private String mileage;
-    private double fuelConsumption;
 
-    public Car(String name, double price, String mileage, double fuelConsumption) {
-        this.name = name;
-        this.price = price;
-        this.mileage = mileage;
-        this.fuelConsumption = fuelConsumption;
+    private String _name_;
+    private double _price_;
+    private String _mileage_;
+    private double _fuelConsumption_;
+
+    public Car(String _name_, double _price_, String _mileage_, double _fuelConsumption_) {
+        this._name_ = _name_;
+        this._price_ = _price_;
+        this._mileage_ = _mileage_;
+        this._fuelConsumption_ = _fuelConsumption_;
     }
 
-    public String getName() { return name; }
-
     public double getPrice() {
-        return price;
+
+        return _price_;
     }
 
     public String getMileage() {
-        return mileage;
+
+        return _mileage_;
     }
 
-    public double getFuelConsumption() { return fuelConsumption; }
+    public double getFuelConsumption() {
+
+        return _fuelConsumption_;
+    }
 
     @Override
     public String toString() {
-        return name + " | $" + price + " | " + mileage + "km | " + fuelConsumption + " L/100km\n";
+
+        return _name_ + " | $" + _price_ + " | " + _mileage_ + "km | " + _fuelConsumption_ + " L/100km\n";
+
     }
 }
 

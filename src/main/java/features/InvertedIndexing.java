@@ -5,7 +5,6 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InvertedIndexing {
@@ -213,13 +212,8 @@ public class InvertedIndexing {
     }
 
     public static boolean isValid(String _usr_inp_) {
-        String urlPattern = "^(https?|ftp):\\/\\/[a-zA-Z0-9-]+(\\.[a-zA-Z]{2,})+(\\/[^\\s]*)?$";
 
-        Pattern pattern = Pattern.compile(urlPattern);
-
-        Matcher matcher = pattern.matcher(_usr_inp_);
-
-        return matcher.matches();
+        return Pattern.compile("^(https?|ftp):\\/\\/[a-zA-Z0-9-]+(\\.[a-zA-Z]{2,})+(\\/[^\\s]*)?$").matcher(_usr_inp_).matches();
     }
 
 
