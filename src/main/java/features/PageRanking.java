@@ -120,7 +120,7 @@ class AVLTree {
 
 public class PageRanking {
     // Function to perform Bubble Sort on the result list
-    static void bubbleSort(List<Map.Entry<String, Integer>> resultList) {
+    public static void bubbleSort(List<Map.Entry<String, Integer>> resultList) {
         int n = resultList.size();
         for (int a = 0; a < n - 1; a++) {
             for (int b = 0; b < n - a - 1; b++) {
@@ -141,7 +141,7 @@ public class PageRanking {
             Path file3Path = Paths.get("C:\\Users\\Bivek\\Documents\\ACC\\ACC_Project\\src\\main\\resources\\goauto.ca.csv");
 
             try (Scanner scanner = new Scanner(System.in)) {
-                System.out.print("Enter a word for page ranking calculation: ");
+                System.out.print("Enter a word for Frequency and page ranking calculation: ");
                 String userInputWord = scanner.next().toLowerCase();
 
                 AVLTree avlTree = new AVLTree();
@@ -153,7 +153,7 @@ public class PageRanking {
                         while ((line = reader.readLine()) != null) {
                             String[] words = line.toLowerCase().split("\\s+");
                             for (String word : words) {
-                                if (word.equals(userInputWord)) {
+                                if (word.contains(userInputWord)) {
                                     avlTree.roots = avlTree.insert(avlTree.roots, filePath.getFileName().toString());
                                 }
                             }
@@ -169,7 +169,7 @@ public class PageRanking {
 
                 // Print page ranking after Bubble Sort
                 bubbleSort(resultList);
-                System.out.println("\nPage ranking of '" + userInputWord + "' (sorted):");
+                System.out.println("\nPage ranking of '" + userInputWord + "' :");
                 for (int i = 0; i < resultList.size(); i++) {
                     System.out.println((i + 1) + ". " + resultList.get(i).getKey() + ": " + resultList.get(i).getValue() + " occurrences");
                 }
@@ -180,4 +180,3 @@ public class PageRanking {
         }
     }
 }
-
