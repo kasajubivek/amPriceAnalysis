@@ -389,9 +389,8 @@ public class MainClass {
                 }
 
             }catch (InputMismatchException e) {
-                // Handle the exception (clear the buffer and display an error message)
                 System.out.println("Invalid input! Please enter a valid number.");
-                _user_choice_scanner_.next(); // Clear the invalid input from the buffer
+                _user_choice_scanner_.next();
             }
 
 
