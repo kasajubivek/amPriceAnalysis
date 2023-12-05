@@ -32,12 +32,6 @@ public class MainClass {
     static List<Car> usedCars = new ArrayList<>();
 
 
-
-    static Set<String> _similar_words_ = new HashSet<>();
-    static boolean _match_;
-
-
-
     public static void main(String[] args) {
 
         System.out.println("\nWelcome!\n");

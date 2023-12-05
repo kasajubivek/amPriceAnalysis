@@ -2,7 +2,6 @@ package features;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -154,13 +153,9 @@ public class SpellChecking {
 
 
     public static boolean isValid(String _usr_inp_) {
-        String wordPattern = "^[a-zA-Z]+$";
 
-        Pattern _ptrn_ = Pattern.compile(wordPattern);
+        return Pattern.compile("^[a-zA-Z]+$").matcher(_usr_inp_).matches();
 
-        Matcher _mtch_ = _ptrn_.matcher(_usr_inp_);
-
-        return _mtch_.matches();
     }
 
 }
