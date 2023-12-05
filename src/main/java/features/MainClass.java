@@ -359,7 +359,7 @@ public class MainClass {
 
                         case 7: {
                                    // Showing path of directory
-        String pathToDir = "C:\\Users\\nikit\\OneDrive\\Desktop\\Advanced Computing Concepts\\Documents\\GitHub\\acc_project\\src\\main\\resources";
+        String pathToDir = "src/main/resources";
         // Define regex patterns for phone numbers and prices
         String regexOfrPhone = "\\b[0-9]{3}[-.]?[0-9]{3}[-.]?[0-9]{4}\\b";
       
