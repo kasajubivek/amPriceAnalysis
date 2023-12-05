@@ -39,13 +39,17 @@ public class WebCrawler {
             System.out.print("Enter your choice: ");
 
             int userChoice = userInput.nextInt();
-            userInput.nextLine();  // Consume the newline character left by nextInt()
+            userInput.nextLine();
+
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
             switch (userChoice) {
                 case 1:
                     System.out.println("Enter the website URL:");
                     System.out.println("The correct format for website is: https://www.abc.xyz");
                     String websiteUrl = userInput.nextLine();
+                    userInput.nextLine();
 
                     if (ValidateUserInput.isValidWebsite(websiteUrl)) {
                         crawlWebsite(websiteUrl);
@@ -63,7 +67,11 @@ public class WebCrawler {
                     String postalCodeChoice = userInput.nextLine();
 
                     if (ValidateUserInput.isValidPostalCode(postalCodeChoice)) {
-                        crawlDefaultWebsite(postalCodeChoice);
+                        System.out.println("how many pages you want to crawl?");
+                        int pageLimit=userInput.nextInt();
+                        userInput.nextLine();
+//                        System.out.println(pageLimit);
+                        crawlDefaultWebsite(postalCodeChoice,pageLimit);
                         userInput.close();
                         return;  // Exit the method if valid input is provided
                     } else {
@@ -81,20 +89,23 @@ public class WebCrawler {
         System.out.println("Crawling website: " + websiteUrl);
         driver.get(websiteUrl);
         Thread.sleep(5000);
+        driver.quit();
     }
 
-    private static void crawlDefaultWebsite(String postalCode) throws InterruptedException {
-        System.out.println("Crawling selected websites.");
+    private static void crawlDefaultWebsite(String postalCode,int pagesToVisit) throws InterruptedException {
+        System.out.println("Crawling " +pagesToVisit+ " pages of the selected websites.");
 
-        crawlDriveAxis(postalCode);
+        crawlDriveAxis(postalCode,pagesToVisit);
         Thread.sleep(3000);
-        crawlGoAuto(postalCode);
+        crawlGoAuto(postalCode,pagesToVisit);
         Thread.sleep(3000);
-        crawlCarGurus(postalCode);
+        crawlCarGurus(postalCode,pagesToVisit);
         Thread.sleep(2000);
+
+        driver.quit();
     }
 
-    public static void crawlCarGurus(String postalCode) throws InterruptedException {
+    public static void crawlCarGurus(String postalCode,int pagesToVisit) throws InterruptedException {
         int currentPage=0;
         int totalPages=0;
         String phoneNumber;
@@ -119,7 +130,7 @@ public class WebCrawler {
                 currentPage = Integer.parseInt(pages.substring(indexOfPage + 5, indexOfOf).trim());
                 totalPages = Integer.parseInt(pages.substring(indexOfOf + 4).trim());
             }
-            for(int i=currentPage;i<=10;i++) {
+            for(int i=currentPage;i<=pagesToVisit;i++) {
                 List<WebElement> carsInTheSite=driver.findElements(By.xpath("//div[@class='k4FSCT']"));
                 int pgSize=carsInTheSite.size();
                 for(int j=1;j<=pgSize;j++) {
@@ -173,7 +184,7 @@ public class WebCrawler {
         }
     }
 
-    public static void crawlGoAuto(String postalCode) throws InterruptedException {
+    public static void crawlGoAuto(String postalCode,int pagesToVisit) throws InterruptedException {
         try{
             driver.get("https://www.goauto.ca/");
             String domain=extractDomain(driver.getCurrentUrl());
@@ -188,7 +199,7 @@ public class WebCrawler {
             int currentPage=Integer.parseInt(driver.findElement(By.xpath("//nav[@class='pagination_pagination__2yOxT']//ul//li[@class='pagination_current__RQBwN']")).getText());
             List<WebElement> totalPage=driver.findElements(By.xpath("//nav[@class='pagination_pagination__2yOxT']//ul//li[@class='pagination_pageNum__4PcSb']"));
             int lastElement = Integer.parseInt(totalPage.get(totalPage.size() - 1).getText());
-            for (int i = currentPage; i <= lastElement; i++) {
+            for (int i = currentPage; i <= pagesToVisit; i++) {
                 Thread.sleep(2000);
                 List<WebElement> numberOfCars=driver.findElements(By.xpath("//div[@class='grid gap-24']//div[@class='grid-cols-4 mb-64']//div[@class='inventory_inventoryListing__vHmrR']//div[@class='background-hint_light__EI87j bg-white text-gray-700 inventory_inventoryCard__XCsAr typ-body-3 undefined inventory_isLinked__frz0l']"));
                 int carsInThePage=numberOfCars.size();
@@ -241,7 +252,7 @@ public class WebCrawler {
         }
     }
 
-    public static void crawlDriveAxis(String postalCode) throws InterruptedException {
+    public static void crawlDriveAxis(String postalCode,int pagesToVisit) throws InterruptedException {
         String carName;String mileage;String carPrice;
         try {
             driver.get("https://www.driveaxis.ca/");
@@ -251,9 +262,9 @@ public class WebCrawler {
             driver.findElement(By.xpath("//div[@class='tooltip']//input[@id='desktop-ax-filter-zip']")).sendKeys(postalCode);
             Thread.sleep(2000);
             driver.findElement(By.xpath("//div[@class='bs-icon']//*[name()='svg']")).click();
-            int maxPagesToVisit =30;
+//            int maxPagesToVisit =30;
             int visitedPages = 1;
-            while (visitedPages <= maxPagesToVisit) {
+            while (visitedPages <= pagesToVisit) {
                 WebElement nextButton = driver.findElement(By.xpath("//a[@class='arrow']//*[local-name()='svg' and @data-icon='chevron-circle-right']"));
                 if (nextButton != null) {
                     List<WebElement> cars = driver.findElements(By.xpath("//div[@id='vlp-inventory-wrapper']//div[@class='vehicle-tile']"));
@@ -313,7 +324,7 @@ public class WebCrawler {
     }
 
     public static void storeCarDataToCSV(String fileName,String[] headers) {
-        try (CSVWriter writer = new CSVWriter(new FileWriter(fileName + ".csv", true))) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(fileName + "[1].csv", true))) {
             writer.writeNext(headers);
 
             for (String[] carDataRow : carDataRows) {
@@ -327,16 +338,16 @@ public class WebCrawler {
         }
     }
 
-    @SuppressWarnings("deprecation")
-    public static void main(String[] args) throws InterruptedException {
-
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        websitesToCrawl();
-
-        Thread.sleep(1000);
-        driver.quit();
-    }
+//    @SuppressWarnings("deprecation")
+//    public static void main(String[] args) throws InterruptedException {
+//
+//        driver.manage().window().maximize();
+//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//
+//        websitesToCrawl();
+//
+//        Thread.sleep(1000);
+//        driver.quit();
+//    }
 
 }
