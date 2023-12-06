@@ -61,19 +61,30 @@ public class WebCrawler {
                     break;
 
                 case 2:
+                    System.out.println("These are the websites which provides best car deals. The websites are: [https://www.goauto.ca, https://www.cargurus.ca, https://www.driveaxis.ca]");
                     System.out.println("Please Enter Your Postal Code!");
                     System.out.println("Accepted format is: A1B 2C3");
                     System.out.print("Enter your postal code: ");
                     String postalCodeChoice = userInput.nextLine();
 
                     if (ValidateUserInput.isValidPostalCode(postalCodeChoice)) {
-                        System.out.println("how many pages you want to crawl?");
-                        int pageLimit=userInput.nextInt();
-                        userInput.nextLine();
+                        System.out.println("Please enter your email address for daily updates from the website!\nAccepted format is: abc@xyz.com");
+                        String emailAddressFromTheUser=userInput.nextLine();
+//                        userInput.nextLine();
+                        if(ValidateUserInput.isValidEmailAddress(emailAddressFromTheUser)){
+                            System.out.println("You will receive regular update from the Websites! Make sure to check your e-mail. :D");
+                            System.out.println("how many pages you want to crawl?");
+                            int pageLimit=userInput.nextInt();
+                            userInput.nextLine();
+                            crawlDefaultWebsite(postalCodeChoice,pageLimit);
+
+                            return;
+                        } else{
+                            System.out.println("You just entered an invalid email. Please check the format suggested above!");
+                        }
 //                        System.out.println(pageLimit);
-                        crawlDefaultWebsite(postalCodeChoice,pageLimit);
-                        userInput.close();
-                        return;  // Exit the method if valid input is provided
+//                        userInput.close();
+//                        return;
                     } else {
                         System.out.println("Invalid Postal Code! Please try again.");
                     }
@@ -95,12 +106,12 @@ public class WebCrawler {
     private static void crawlDefaultWebsite(String postalCode,int pagesToVisit) throws InterruptedException {
         System.out.println("Crawling " +pagesToVisit+ " pages of the selected websites.");
 
-        crawlDriveAxis(postalCode,pagesToVisit);
-        Thread.sleep(3000);
-        crawlGoAuto(postalCode,pagesToVisit);
-        Thread.sleep(3000);
         crawlCarGurus(postalCode,pagesToVisit);
         Thread.sleep(2000);
+        crawlGoAuto(postalCode,pagesToVisit);
+        Thread.sleep(3000);
+        crawlDriveAxis(postalCode,pagesToVisit);
+        Thread.sleep(3000);
 
         driver.quit();
     }
@@ -133,7 +144,7 @@ public class WebCrawler {
             for(int i=currentPage;i<=pagesToVisit;i++) {
                 List<WebElement> carsInTheSite=driver.findElements(By.xpath("//div[@class='k4FSCT']"));
                 int pgSize=carsInTheSite.size();
-                for(int j=1;j<=pgSize;j++) {
+                for(int j=1;j<=6;j++) {
                     try {
                         try {
                             WebElement closeButtonForDialog = driver.findElement(By.xpath("//button[@aria-label='Close']"));
@@ -141,7 +152,7 @@ public class WebCrawler {
                                 closeButtonForDialog.click();
                             }
                         } catch (Exception e) {
-                            System.out.println("Dialog not found! Proceeding with the rest of the code.");
+//                            System.out.println("Dialog not found! Proceeding with the rest of the code.");
                         }
                         WebElement pageI = driver.findElement(By.xpath("(//div[@class='k4FSCT'])[" + j + "]"));
                         String carName = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//div[@class='k4FSCT']//div//h4[@class='gN7yGT'])[" + j + "]"))).getText();
@@ -160,11 +171,11 @@ public class WebCrawler {
                                 closeButtonForDialog.click();
                             }
                         } catch (Exception e) {
-                            System.out.println("Dialog not found! Proceeding with the rest of the code.");
+//                            System.out.println("Dialog not found! Proceeding with the rest of the code.");
                         }
                         List<WebElement> carFuelConsumption = driver.findElements(By.xpath("//div[@class='mhYSgs']//section//div//ul[@class='dTIusl']//li[@class='K74no_']//div[h4='Fuel Consumption']/p[@class='qj8lUO']"));
                         fuelConsumption = !carFuelConsumption.isEmpty() ? carFuelConsumption.get(0).getText() : "No Information Found";
-                        System.out.println(fuelConsumption);
+//                        System.out.println(fuelConsumption);
                         driver.findElement(By.xpath("//div[@class='ZBloTD RZq0ac']//span[@class='xF9OZq'][normalize-space()='All results']")).click();
                         String[] carDataRow = {carName, carPrice, carMileage, fuelConsumption, phoneNumber, monthlyPayment, carLocation};
                         carDataRows.add(carDataRow);
@@ -180,7 +191,7 @@ public class WebCrawler {
         }
         catch (Exception e){
             System.out.println("Error! Retrying......");
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -203,7 +214,7 @@ public class WebCrawler {
                 Thread.sleep(2000);
                 List<WebElement> numberOfCars=driver.findElements(By.xpath("//div[@class='grid gap-24']//div[@class='grid-cols-4 mb-64']//div[@class='inventory_inventoryListing__vHmrR']//div[@class='background-hint_light__EI87j bg-white text-gray-700 inventory_inventoryCard__XCsAr typ-body-3 undefined inventory_isLinked__frz0l']"));
                 int carsInThePage=numberOfCars.size();
-                for(int j=1;j<=carsInThePage;j++) {
+                for(int j=1;j<=6;j++) {
                     try {
                         WebElement pagei=wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//div[@class='grid gap-24']//div[@class='grid-cols-4 mb-64']//div[@class='inventory_inventoryListing__vHmrR']//div[@class='background-hint_light__EI87j bg-white text-gray-700 inventory_inventoryCard__XCsAr typ-body-3 undefined inventory_isLinked__frz0l'])["+j+"]")));
                         String mileage;
@@ -248,7 +259,7 @@ public class WebCrawler {
         }
         catch(Exception e){
             System.out.println("Error! Retrying......");
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -269,7 +280,7 @@ public class WebCrawler {
                 if (nextButton != null) {
                     List<WebElement> cars = driver.findElements(By.xpath("//div[@id='vlp-inventory-wrapper']//div[@class='vehicle-tile']"));
                     int carsInThePage = cars.size();
-                    for (int j = 1; j <= carsInThePage; j++) {
+                    for (int j = 1; j <= 6; j++) {
                         try {
                             WebElement singleCar = driver.findElement(By.xpath("(//div[@id='vlp-inventory-wrapper']//div[@class='vehicle-tile'])[" + j + "]"));
                             String paymentType = driver.findElement(By.xpath("(//div[@class='vehicle-tile-right']//div[@class='vehicle-biweekly'])[" + j + "]")).getText();
@@ -306,7 +317,7 @@ public class WebCrawler {
         }
         catch(Exception e){
             System.out.println("Error! Retrying......");
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -330,24 +341,11 @@ public class WebCrawler {
             for (String[] carDataRow : carDataRows) {
                 writer.writeNext(carDataRow);
             }
-
             System.out.println("Car data has been added to the CSV file successfully!");
             carDataRows.clear();
         } catch (IOException e) {
             System.out.println("Please check the log for error"+e.getMessage());
         }
     }
-
-//    @SuppressWarnings("deprecation")
-//    public static void main(String[] args) throws InterruptedException {
-//
-//        driver.manage().window().maximize();
-//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//
-//        websitesToCrawl();
-//
-//        Thread.sleep(1000);
-//        driver.quit();
-//    }
 
 }

@@ -16,14 +16,6 @@ import java.util.regex.Pattern;
 
 public class MainClass {
 
-    private static final WebDriver driver=new FirefoxDriver();
-    //	private static final WebDriver driver=new ChromeDriver();
-
-    private static final List<String[]> carDataRows = new ArrayList<>();
-    private static final WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-
-
     static Set<Double> uniquePricesNewCars = new HashSet<>();
     static Set<Double> uniquePricesUsedCars = new HashSet<>();
     static List<Car> bestDealsNewCars = new ArrayList<>();
@@ -51,6 +43,7 @@ public class MainClass {
             System.out.println("Please pick one of the following options to test. If you want to exit press '8'");
             System.out.println("1. Web crawler\n2. Best Car Deal\n3. Inverted Indexing\n4. Spell Checking\n5. Frequency Count & Page Ranking\n6. Search Frequency\n7. Pattern Matching\n8. Exit");
             System.out.println("-------------------------------------------------\n");
+            System.out.println("Enter the option you want to choose: ");
 
             //
 
@@ -68,15 +61,10 @@ public class MainClass {
                         case 1:{
                             //Web Crawler
                             try{
-                                driver.manage().window().maximize();
-                                driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
                                 WebCrawler.websitesToCrawl();
-
                                 Thread.sleep(1000);
-                                driver.quit();
                             }catch (InterruptedException e){
-                                System.out.println(e);
+//                                System.out.println(e);
                                 e.printStackTrace();
                             }
                             break;
@@ -262,11 +250,8 @@ public class MainClass {
 
                         case 4:
                             //Spell Checking
-
                             SpellChecking.getManufacturersList();
                             SpellChecking.spellChecker();
-
-
                             break;
                         case 5:{
 
@@ -321,7 +306,6 @@ public class MainClass {
 
                             break;
                         }
-
                         case 6:{
 
                             // Create a HashMap to store words and their frequencies
@@ -390,24 +374,15 @@ public class MainClass {
                             System.out.println("Invalid Input!");
                             break;
                     }
-
-
                 }else {
                     System.out.println("Enter numbers from 1-8");
                     continue;
                 }
-
             }catch (InputMismatchException e) {
                 // Handle the exception (clear the buffer and display an error message)
                 System.out.println("Invalid input! Please enter a valid number.");
                 _user_choice_scanner_.next(); // Clear the invalid input from the buffer
             }
-
-
         }
-
-
     }
-
-
 }
