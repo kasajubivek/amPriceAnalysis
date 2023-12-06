@@ -122,92 +122,119 @@ public class InvertedIndexing {
 
         System.out.println("\nDo you want to add more URLs? (Y/N)");
 
-        _user_input_ = scanner.nextLine().toLowerCase();
+//        _user_input_ = scanner.nextLine().toLowerCase();
 
-        if (_user_input_.equalsIgnoreCase("yes") || _user_input_.equalsIgnoreCase("y")) {
+        while(true){
+            _user_input_ = scanner.nextLine().toLowerCase();
 
-            System.out.print("Enter the URL\n");
-            System.out.println("Type 'done' after you finish!");
+            if (!_user_input_.equalsIgnoreCase("yes") && !_user_input_.equalsIgnoreCase("y") && !_user_input_.equalsIgnoreCase("no") && !_user_input_.equalsIgnoreCase("n"))
+                {
+                    System.out.println("Invalid Input. Answer (Y/N)");
+                    continue;
+                }
 
-            String newUrl = scanner.nextLine();
-            while (!newUrl.equalsIgnoreCase("done")) {
-                if(isValid(newUrl)){
-                    urls.add(newUrl);
-                    System.out.println("URL added successfully.\n");
+            if (_user_input_.equalsIgnoreCase("yes") || _user_input_.equalsIgnoreCase("y")) {
 
-                    System.out.print("Enter another URL (or type 'done' to finish): ");
-                    newUrl = scanner.nextLine();
-                }else {
-                    System.out.println("Invalid URL. Please enter a valid URL (or type 'done' to finish):");
-                    newUrl = scanner.nextLine();
+                System.out.print("Enter the URL\n");
+                System.out.println("Type 'done' after you finish!");
+
+                String newUrl = scanner.nextLine();
+                while (!newUrl.equalsIgnoreCase("done")) {
+                    if(isValid(newUrl)){
+                        urls.add(newUrl);
+                        System.out.println("URL added successfully.\n");
+
+                        System.out.print("Enter another URL (or type 'done' to finish): ");
+                        newUrl = scanner.nextLine();
+                    }else {
+                        System.out.println("Invalid URL. Please enter a valid URL (or type 'done' to finish):");
+                        newUrl = scanner.nextLine();
+                    }
+
+
+
+                }
+            }
+
+            System.out.println("Crawling.....");
+            obj.crawlAndIndex(urls);
+
+            while (true) {
+
+                System.out.println("\nEnter something to search\nIf you want to exit the search then type '_quit': ");
+
+                _user_input_ = scanner.nextLine();
+
+                if (_user_input_.equalsIgnoreCase("_quit")) {
+                    System.out.println("Sure!\n");
+                    break;
+                }
+
+
+
+                Map<String, Integer> searchResult = obj.search(_user_input_);
+
+
+                List<Map.Entry<String, Integer>> searchResultList = new ArrayList<>(searchResult.entrySet());
+
+                // Sort the list using merge sort based on the values
+                mergeSort(searchResultList, 0, searchResultList.size() - 1);
+
+
+                if (!searchResultList.isEmpty()) {
+                    System.out.println("\nThe relevant urls containing the input:\n");
+
+                    for (Map.Entry<String, Integer> url : searchResultList) {
+
+                        System.out.println("URL: " + url.getKey() + ", Total Frequency: " + url.getValue());
+                    }
+
+                } else {
+                    System.out.println("Sorry! No such urls were found related to the input.");
                 }
 
 
 
             }
-        }
 
-        System.out.println("Crawling.....");
-        obj.crawlAndIndex(urls);
-
-        while (true) {
-
-            System.out.println("\nEnter something to search\nIf you want to exit the search then type '_quit': ");
-
-            _user_input_ = scanner.nextLine();
-
-            if (_user_input_.equalsIgnoreCase("_quit")) {
-                System.out.println("Sure!\n");
-                break;
-            }
+            System.out.println("Do you want to view the entire Inverted Index Map? (Y/N)");
 
 
 
-            Map<String, Integer> searchResult = obj.search(_user_input_);
+            while(true){
 
+                _user_input_ = scanner.nextLine();
 
-            List<Map.Entry<String, Integer>> searchResultList = new ArrayList<>(searchResult.entrySet());
-
-            // Sort the list using merge sort based on the values
-            mergeSort(searchResultList, 0, searchResultList.size() - 1);
-
-
-            if (!searchResultList.isEmpty()) {
-                System.out.println("\nThe relevant urls containing the input:\n");
-
-                for (Map.Entry<String, Integer> url : searchResultList) {
-
-                    System.out.println("URL: " + url.getKey() + ", Total Frequency: " + url.getValue());
+                if (!_user_input_.equalsIgnoreCase("yes") && !_user_input_.equalsIgnoreCase("y") && !_user_input_.equalsIgnoreCase("no") && !_user_input_.equalsIgnoreCase("n"))
+                {
+                    System.out.println("Invalid Input. Answer (Y/N)");
+                    continue;
                 }
 
-            } else {
-                System.out.println("Sorry! No such urls were found related to the input.");
-            }
+                if(_user_input_.equalsIgnoreCase("yes") || _user_input_.equalsIgnoreCase("y")){
+                    for(Map.Entry<String, Map<String, Integer>> entry: obj._hm_.entrySet()){
+                        System.out.println("Word: "+entry.getKey());
+                        for(Map.Entry<String, Integer> innerEntry: entry.getValue().entrySet()){
+                            System.out.println("URL: "+innerEntry.getKey()+" Frequency: "+innerEntry.getValue());
+                        }
+                        System.out.println("");
+                    }
 
+                    System.out.println("See you!");
+                    break;
 
-
-        }
-
-        System.out.println("Do you want to view the entire Inverted Index Map? (Y/N)");
-
-        _user_input_ = scanner.nextLine();
-
-        if(_user_input_.equalsIgnoreCase("yes") || _user_input_.equalsIgnoreCase("y")){
-            for(Map.Entry<String, Map<String, Integer>> entry: obj._hm_.entrySet()){
-                System.out.println("Word: "+entry.getKey());
-                for(Map.Entry<String, Integer> innerEntry: entry.getValue().entrySet()){
-                    System.out.println("URL: "+innerEntry.getKey()+" Frequency: "+innerEntry.getValue());
+                }else{
+                    System.out.println("See you!");
+                    break;
                 }
-                System.out.println("");
+
             }
 
-            System.out.println("See you!");
+        break;
 
-        }else{
-            System.out.println("See you!");
         }
 
-        scanner.close();
+//        scanner.close();
 
     }
 
