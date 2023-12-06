@@ -49,7 +49,6 @@ public class WebCrawler {
                     System.out.println("Enter the website URL:");
                     System.out.println("The correct format for website is: https://www.abc.xyz");
                     String websiteUrl = userInput.nextLine();
-                    userInput.nextLine();
 
                     if (ValidateUserInput.isValidWebsite(websiteUrl)) {
                         crawlWebsite(websiteUrl);
