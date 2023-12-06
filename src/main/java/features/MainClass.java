@@ -376,9 +376,9 @@ public class MainClass {
                             File dir = new File(pathOfDir);
                             File[] files = dir.listFiles();
                             if (files != null) {
-                                for (File file : files) {
-                                    if (file.isFile()) {
-                                        System.out.println("Searching in file: " + file.getName());
+                                for (File filesHere : files) {
+                                    if (filesHere.isFile()) {
+                                        System.out.println("Searching in file: " + filesHere.getName());
                                         PatternMatching.searchFile(filesHere, patternOfPhone, patternOfPrice);
                                     }
                                 }
