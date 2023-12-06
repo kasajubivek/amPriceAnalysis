@@ -40,7 +40,7 @@ public class MainClass {
         while(true){
 
             System.out.println("\n-------------------------------------------------");
-            System.out.println("Please pick one of the following options to test. If you want to exit press '8'");
+            System.out.println("If you want to start crawling press 1. Else choose options 2-7. If you want to exit press '8'");
             System.out.println("1. Web crawler\n2. Best Car Deal\n3. Inverted Indexing\n4. Spell Checking\n5. Frequency Count & Page Ranking\n6. Search Frequency\n7. Pattern Matching\n8. Exit");
             System.out.println("-------------------------------------------------\n");
             System.out.println("Enter the option you want to choose: ");

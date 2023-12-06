@@ -89,6 +89,9 @@ public class WebCrawler {
                         System.out.println("Invalid Postal Code! Please try again.");
                     }
                     break;
+                case 3:
+                    driver.quit();
+                    return;
 
                 default:
                     System.out.println("Invalid choice. Please choose 1 or 2.");
@@ -106,14 +109,18 @@ public class WebCrawler {
     private static void crawlDefaultWebsite(String postalCode,int pagesToVisit) throws InterruptedException {
         System.out.println("Crawling " +pagesToVisit+ " pages of the selected websites.");
 
-        crawlCarGurus(postalCode,pagesToVisit);
-        Thread.sleep(2000);
-        crawlGoAuto(postalCode,pagesToVisit);
-        Thread.sleep(3000);
-        crawlDriveAxis(postalCode,pagesToVisit);
-        Thread.sleep(3000);
+        try{
+            crawlCarGurus(postalCode,pagesToVisit);
+            Thread.sleep(2000);
+            crawlGoAuto(postalCode,pagesToVisit);
+            Thread.sleep(3000);
+            crawlDriveAxis(postalCode,pagesToVisit);
+            Thread.sleep(3000);
 
-        driver.quit();
+            driver.quit();
+        }catch(Exception e){
+            System.out.println("Retrying");
+        }
     }
 
     public static void crawlCarGurus(String postalCode,int pagesToVisit) throws InterruptedException {
@@ -144,7 +151,7 @@ public class WebCrawler {
             for(int i=currentPage;i<=pagesToVisit;i++) {
                 List<WebElement> carsInTheSite=driver.findElements(By.xpath("//div[@class='k4FSCT']"));
                 int pgSize=carsInTheSite.size();
-                for(int j=1;j<=6;j++) {
+                for(int j=1;j<=3;j++) {
                     try {
                         try {
                             WebElement closeButtonForDialog = driver.findElement(By.xpath("//button[@aria-label='Close']"));
@@ -214,7 +221,7 @@ public class WebCrawler {
                 Thread.sleep(2000);
                 List<WebElement> numberOfCars=driver.findElements(By.xpath("//div[@class='grid gap-24']//div[@class='grid-cols-4 mb-64']//div[@class='inventory_inventoryListing__vHmrR']//div[@class='background-hint_light__EI87j bg-white text-gray-700 inventory_inventoryCard__XCsAr typ-body-3 undefined inventory_isLinked__frz0l']"));
                 int carsInThePage=numberOfCars.size();
-                for(int j=1;j<=6;j++) {
+                for(int j=1;j<=3;j++) {
                     try {
                         WebElement pagei=wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//div[@class='grid gap-24']//div[@class='grid-cols-4 mb-64']//div[@class='inventory_inventoryListing__vHmrR']//div[@class='background-hint_light__EI87j bg-white text-gray-700 inventory_inventoryCard__XCsAr typ-body-3 undefined inventory_isLinked__frz0l'])["+j+"]")));
                         String mileage;
@@ -280,7 +287,7 @@ public class WebCrawler {
                 if (nextButton != null) {
                     List<WebElement> cars = driver.findElements(By.xpath("//div[@id='vlp-inventory-wrapper']//div[@class='vehicle-tile']"));
                     int carsInThePage = cars.size();
-                    for (int j = 1; j <= 6; j++) {
+                    for (int j = 1; j <= 3; j++) {
                         try {
                             WebElement singleCar = driver.findElement(By.xpath("(//div[@id='vlp-inventory-wrapper']//div[@class='vehicle-tile'])[" + j + "]"));
                             String paymentType = driver.findElement(By.xpath("(//div[@class='vehicle-tile-right']//div[@class='vehicle-biweekly'])[" + j + "]")).getText();
